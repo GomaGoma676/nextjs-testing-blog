@@ -1,34 +1,129 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+## Project setup : Nextjs+React-testing-library+TypeScript+Tailwind CSS
 
-First, run the development server:
+## 1. Nextjs Project 新規作成
+### 1-1.  create-next-app
+    npx create-next-app . --use-npm
+#### Node.js version 10.13以降が必要です。 -> ターミナル `node -v`でver確認出来ます。
+### 1-2.  必要 module のインストール
+    npm i axios msw swr
+### 1-3.  prettierの設定 : package.json
+~~~
+    "prettier": {
+        "singleQuote": true,
+        "semi": false
+    }
+~~~  
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+## 2. React-testing-library の導入
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2-1.  必要 module のインストール  
+    npm i -D jest @testing-library/react @types/jest @testing-library/jest-dom @testing-library/dom babel-jest @testing-library/user-event jest-css-modules
+### 2-2.  Project folder 直下に".babelrc"ファイルを作成して下記設定を追加
+    touch .babelrc
+~~~
+    {
+        "presets": ["next/babel"]
+    }
+~~~
+### 2-3.  package.json に jest の設定を追記
+~~~
+    "jest": {
+        "testPathIgnorePatterns": [
+            "<rootDir>/.next/",
+            "<rootDir>/node_modules/"
+        ],
+        "moduleNameMapper": {
+            "\\.(css)$": "<rootDir>/node_modules/jest-css-modules"
+        }
+    }
+~~~
+### 2-4.  package.jsonに test scriptを追記
+~~~
+    "scripts": {
+        ...
+        "test": "jest --env=jsdom --verbose"
+    },
+~~~
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## 3. TypeScript の導入
+https://nextjs.org/learn/excel/typescript/create-tsconfig
+### 3-1. 空のtsconfig.json作成
+    touch tsconfig.json
+### 3-2. 必要moduleのインストール
+    npm i -D typescript @types/react @types/node
+### 3-3. 開発server起動
+    npm run dev
+### 3-4. _app.js, index.js -> tsx へ拡張子変更
+### 3-5. AppProps型追記
+~~~
+    import { AppProps } from 'next/app'
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+    function MyApp({ Component, pageProps }: AppProps) {
+        return <Component {...pageProps} />
+    }
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+    export default MyApp
+~~~
 
-## Learn More
+## 4. Tailwind CSS の導入
+https://tailwindcss.com/docs/guides/nextjs
+### 4-1. 必要moduleのインストール
+    npm i tailwindcss@latest postcss@latest autoprefixer@latest
+### 4-2. tailwind.config.js, postcss.config.jsの生成
+    npx tailwindcss init -p
+### 4-3. tailwind.config.jsのpurge設定追加
+~~~
+module.exports = {
+    purge: ['./pages/**/*.tsx', './components/**/*.tsx'],
+    darkMode: false,
+    theme: {
+        extend: {},
+    },
+    variants: {
+        extend: {},
+    },
+    plugins: [],
+}
+~~~
+### 4-4. globals.cssの編集
+~~~
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+~~~
+## 5. 動作確認
+### 5-1. index.tsxの編集
+~~~
+const Home: React.FC = () => {
+  return (
+    <div className="flex justify-center items-center flex-col min-h-screen font-mono">
+      Hello Nextjs
+    </div>
+  )
+}
+export default Home
+~~~
+#### npm run dev -> Tailwind CSSが効いているかブラウザで確認
+### 5-2. `__tests__`フォルダと`Home.test.tsx`ファイルの作成
+~~~
+import { render, screen } from '@testing-library/react'
+import '@testing-library/jest-dom/extend-expect'
+import Home from '../pages/index'
 
-To learn more about Next.js, take a look at the following resources:
+it('Should render hello text', () => {
+  render(<Home />)
+  expect(screen.getByText('Hello Nextjs')).toBeInTheDocument()
+})
+~~~
+#### npm test -> テストがPASSするか確認
+~~~
+ PASS  __tests__/Home.test.tsx
+  ✓ Should render hello text (20 ms)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Test Suites: 1 passed, 1 total
+Tests:       1 passed, 1 total
+Snapshots:   0 total
+Time:        1.728 s, estimated 2 s
+~~~
