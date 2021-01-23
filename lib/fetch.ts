@@ -25,7 +25,8 @@ export const getPostData = async (id: string) => {
     new URL(`${process.env.NEXT_PUBLIC_RESTAPI_URL}/get-blogs/${id}`)
   )
   const post = await res.json()
-  return {
-    post,
-  }
+  // return {
+  //   post,
+  // }
+  return post
 }
