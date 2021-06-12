@@ -1,3 +1,6 @@
+/**
+ * @jest-environment jsdom
+ */
 import { render, screen, cleanup } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import userEvent from '@testing-library/user-event'
@@ -5,6 +8,7 @@ import { rest } from 'msw'
 import { setupServer } from 'msw/node'
 import { getPage } from 'next-page-tester'
 import { initTestHelpers } from 'next-page-tester'
+import 'setimmediate'
 
 initTestHelpers()
 
