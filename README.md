@@ -7,7 +7,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
     npx create-next-app . --use-npm
 #### Node.js version 10.13以降が必要です。 -> ターミナル `node -v`でver確認出来ます。
 ### 1-2.  必要 module のインストール
-    npm i axios msw swr
+    npm i axios@0.21.1 msw swr
 ### 1-3.  prettierの設定 : package.json
 ~~~
     "prettier": {
