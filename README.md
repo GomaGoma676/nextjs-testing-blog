@@ -19,7 +19,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 ## 2. React-testing-library の導入
 
 ### 2-1.  必要 module のインストール  
-    npm i -D jest @testing-library/react @types/jest @testing-library/jest-dom @testing-library/dom babel-jest @testing-library/user-event jest-css-modules
+    npm i -D jest@26.6.3 @testing-library/react@11.2.3 @types/jest@26.0.20 @testing-library/jest-dom@5.11.8 @testing-library/dom@7.29.2 babel-jest@26.6.3 @testing-library/user-event@12.6.0 jest-css-modules@2.1.0
 ### 2-2.  Project folder 直下に".babelrc"ファイルを作成して下記設定を追加
     touch .babelrc
 ~~~
