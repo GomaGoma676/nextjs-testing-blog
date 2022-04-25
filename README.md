@@ -18,8 +18,10 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## 2. React-testing-library の導入
 
-### 2-1.  必要 module のインストール  
-    npm i -D jest@26.6.3 @testing-library/react@11.2.3 @types/jest@26.0.20 @testing-library/jest-dom@5.11.8 @testing-library/dom@7.29.2 babel-jest@26.6.3 @testing-library/user-event@12.6.0 jest-css-modules@2.1.0
+### 2-1.  必要 module のインストール
+    npm i react@17.0.2 react-dom@17.0.2
+    npm i next@11.1.2
+    npm i -D next-page-tester@0.30.0 jest@26.6.3 @testing-library/react@11.2.3 @types/jest@26.0.20 @testing-library/jest-dom@5.11.8 @testing-library/dom@7.29.2 babel-jest@26.6.3 @testing-library/user-event@12.6.0 jest-css-modules@2.1.0
 ### 2-2.  Project folder 直下に".babelrc"ファイルを作成して下記設定を追加
     touch .babelrc
 ~~~
@@ -52,7 +54,7 @@ https://nextjs.org/learn/excel/typescript/create-tsconfig
 ### 3-1. 空のtsconfig.json作成
     touch tsconfig.json
 ### 3-2. 必要moduleのインストール
-    npm i -D typescript @types/react @types/node
+    npm i -D typescript @types/react@17.0.41 @types/node
 ### 3-3. 開発server起動
     npm run dev
 ### 3-4. _app.js, index.js -> tsx へ拡張子変更
@@ -76,7 +78,10 @@ https://tailwindcss.com/docs/guides/nextjs
 ### 4-3. tailwind.config.jsのpurge設定追加
 ~~~
 module.exports = {
-    purge: ['./pages/**/*.tsx', './components/**/*.tsx'],
+    content: [
+        "./pages/**/*.{js,ts,jsx,tsx}",
+        "./components/**/*.{js,ts,jsx,tsx}",
+    ],
     darkMode: false,
     theme: {
         extend: {},
