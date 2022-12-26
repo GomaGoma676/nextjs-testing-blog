@@ -4,7 +4,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## 1. Nextjs Project 新規作成
 ### 1-1.  create-next-app
-    npx create-next-app . --use-npm
+    npx create-next-app@11.1.2 . --use-npm
 #### Node.js version 10.13以降が必要です。 -> ターミナル `node -v`でver確認出来ます。
 ### 1-2.  必要 module のインストール
     npm i axios@0.21.1 msw@0.35.0 swr
@@ -54,7 +54,7 @@ https://nextjs.org/learn/excel/typescript/create-tsconfig
 ### 3-1. 空のtsconfig.json作成
     touch tsconfig.json
 ### 3-2. 必要moduleのインストール
-    npm i -D typescript @types/react@17.0.41 @types/node
+    npm i -D typescript @types/react@17.0.41 @types/node@14.14.41
 ### 3-3. 開発server起動
     npm run dev
 ### 3-4. _app.js, index.js -> tsx へ拡張子変更
